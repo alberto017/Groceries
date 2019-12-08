@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "628450799720",
+    "firebase_url": "https://conexionfirebase-30f6b.firebaseio.com",
+    "project_id": "conexionfirebase-30f6b",
+    "storage_bucket": "conexionfirebase-30f6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628450799720:android:755e4ace3591a58e",
+        "android_client_info": {
+          "package_name": "com.example.sanchez.groceries"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPyDvqGGwyxhwP1-LJz143cvnlQt0KrOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628450799720-m25utbnc0klo17heoisjjim0894ddhe1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
