@@ -26,8 +26,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.nio.file.Watchable;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -51,6 +55,7 @@ public class SignUpFragment extends Fragment {
     private ImageButton close;
     private Button btnCreateUser;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
     private String emailPattern = "[a-zA-z0-9._-]+@[a-z]+.[a-z]+";
 
     @Override
@@ -72,6 +77,7 @@ public class SignUpFragment extends Fragment {
 
         //Creamos una instancia
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         return view;
     }//onCreateView
@@ -218,6 +224,27 @@ public class SignUpFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+
+                                    Map<Object,String> userdata = new HashMap<>();
+                                    userdata.put("fullname",fullName.getText().toString());
+                                    firebaseFirestore.collection("USERS")
+                                            .add(userdata)
+                                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                    if(task.isSuccessful()){
+
+                                                    }else{
+
+                                                    }//else
+                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                    btnCreateUser.setEnabled(false);
+                                                    btnCreateUser.setTextColor(Color.rgb(255,255,255));
+                                                    String error = task.getException().getMessage();
+                                                    Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+                                                }//if
+                                            });
+
                                     Intent mainIntent = new Intent(getActivity(),MainActivity.class);
                                     startActivity(mainIntent);
                                     getActivity().finish();
