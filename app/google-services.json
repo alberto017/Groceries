@@ -1,29 +1,34 @@
 {
   "project_info": {
-    "project_number": "628450799720",
-    "firebase_url": "https://conexionfirebase-30f6b.firebaseio.com",
-    "project_id": "conexionfirebase-30f6b",
-    "storage_bucket": "conexionfirebase-30f6b.appspot.com"
+    "project_number": "370763759622",
+    "firebase_url": "https://groceries-60732.firebaseio.com",
+    "project_id": "groceries-60732",
+    "storage_bucket": "groceries-60732.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:628450799720:android:755e4ace3591a58e",
+        "mobilesdk_app_id": "1:370763759622:android:d5a5e7d2632fc728594387",
         "android_client_info": {
           "package_name": "com.example.sanchez.groceries"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "370763759622-f1pflel5ir4o54uscespl2mh35avbci4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBPyDvqGGwyxhwP1-LJz143cvnlQt0KrOk"
+          "current_key": "AIzaSyDfTQw3HYKIPtKi0zd9O8xgCWaYO1Te6GA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "628450799720-m25utbnc0klo17heoisjjim0894ddhe1.apps.googleusercontent.com",
+              "client_id": "370763759622-f1pflel5ir4o54uscespl2mh35avbci4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

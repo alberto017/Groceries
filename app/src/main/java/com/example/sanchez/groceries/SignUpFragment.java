@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,9 +52,9 @@ public class SignUpFragment extends Fragment {
     private EditText fullName;
     private EditText password;
     private EditText confirmPassword;
-    private ProgressBar progressBar;
-    private ImageButton close;
-    private Button btnCreateUser;
+    private ProgressBar pgbSignUp;
+    private ImageView imgClose;
+    private Button createUser;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private String emailPattern = "[a-zA-z0-9._-]+@[a-z]+.[a-z]+";
@@ -71,9 +72,9 @@ public class SignUpFragment extends Fragment {
         fullName = view.findViewById(R.id.txtName);
         password = view.findViewById(R.id.txtPassword);
         confirmPassword = view.findViewById(R.id.txtRepeatPassword);
-        close = view.findViewById(R.id.imgClose);
-        progressBar = view.findViewById(R.id.pgbSignUp);
-        btnCreateUser = view.findViewById(R.id.btnCreateUser);
+        imgClose = view.findViewById(R.id.imgClose);
+        pgbSignUp = view.findViewById(R.id.pgbSignUp);
+        createUser = view.findViewById(R.id.btnCreateUser);
 
         //Creamos una instancia
         firebaseAuth = FirebaseAuth.getInstance();
@@ -165,10 +166,18 @@ public class SignUpFragment extends Fragment {
         });
 
         //Evento de Boton
-        btnCreateUser.setOnClickListener(new View.OnClickListener() {
+        createUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkEmailAndPassword();
+            }
+        });
+
+        //
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainIntent();
             }
         });
     }//onViewCreated
@@ -187,44 +196,42 @@ public class SignUpFragment extends Fragment {
     private void checkInputs(){
         if(!TextUtils.isEmpty(email.getText())){
             if(!TextUtils.isEmpty(fullName.getText())){
-                if(!TextUtils.isEmpty(password.getText()) && password.length() > 8){
+                if(!TextUtils.isEmpty(password.getText()) && password.length() >= 8){
                     if(!TextUtils.isEmpty(confirmPassword.getText())){
-                        btnCreateUser.setEnabled(true);
-                        btnCreateUser.setTextColor(Color.rgb(255,255,255));
+                        createUser.setEnabled(true);
+                        createUser.setTextColor(Color.rgb(255,255,255));
                     }else{
-                        btnCreateUser.setEnabled(false);
-                        btnCreateUser.setTextColor(Color.rgb(50,255,255));
+                        createUser.setEnabled(false);
+                        createUser.setTextColor(Color.argb(50,255,255,255));
                     }//4to
                 }else{
-                    btnCreateUser.setEnabled(false);
-                    btnCreateUser.setTextColor(Color.rgb(50,255,255));
+                    createUser.setEnabled(false);
+                    createUser.setTextColor(Color.argb(50,255,255,255));
                 }//3ro
             }else{
-                btnCreateUser.setEnabled(true);
-                btnCreateUser.setTextColor(Color.rgb(50,255,255));
+                createUser.setEnabled(false);
+                createUser.setTextColor(Color.argb(50,255,255,255));
             }//2do
         }else{
-            btnCreateUser.setEnabled(false);
-            btnCreateUser.setTextColor(Color.rgb(50,255,255));
+            createUser.setEnabled(false);
+            createUser.setTextColor(Color.argb(50,255,255,255));
         }//1ero
     }//checkInputs
 
 
     //Validacion de Correo-Email
     private void checkEmailAndPassword(){
-        if(email.toString().matches(emailPattern)){
+        if(email.getText().toString().matches(emailPattern)){
             if(password.getText().toString().equals(confirmPassword.getText().toString())){
-
-                progressBar.setVisibility(View.VISIBLE);
-                btnCreateUser.setEnabled(false);
-                btnCreateUser.setTextColor(Color.rgb(50,255,255));
-
+                pgbSignUp.setVisibility(View.VISIBLE);
+                createUser.setEnabled(false);
+                createUser.setTextColor(Color.argb(50,255,255,255));
                 firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-
+                                    //Envio de datos a firebase
                                     Map<Object,String> userdata = new HashMap<>();
                                     userdata.put("fullname",fullName.getText().toString());
                                     firebaseFirestore.collection("USERS")
@@ -233,25 +240,22 @@ public class SignUpFragment extends Fragment {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                                     if(task.isSuccessful()){
-
+                                                        Intent mainIntent = new Intent(getActivity(),Register.class);
+                                                        startActivity(mainIntent);
+                                                        getActivity().finish();
                                                     }else{
-
+                                                        pgbSignUp.setVisibility(View.INVISIBLE);
+                                                        createUser.setEnabled(false);
+                                                        createUser.setTextColor(Color.rgb(255,255,255));
+                                                        String error = task.getException().getMessage();
+                                                        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
                                                     }//else
-                                                    progressBar.setVisibility(View.INVISIBLE);
-                                                    btnCreateUser.setEnabled(false);
-                                                    btnCreateUser.setTextColor(Color.rgb(255,255,255));
-                                                    String error = task.getException().getMessage();
-                                                    Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
                                                 }//if
                                             });
-
-                                    Intent mainIntent = new Intent(getActivity(),MainActivity.class);
-                                    startActivity(mainIntent);
-                                    getActivity().finish();
                                 }else{
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    btnCreateUser.setEnabled(false);
-                                    btnCreateUser.setTextColor(Color.rgb(255,255,255));
+                                    pgbSignUp.setVisibility(View.INVISIBLE);
+                                    createUser.setEnabled(false);
+                                    createUser.setTextColor(Color.rgb(255,255,255));
                                     String error = task.getException().getMessage();
                                     Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
                                 }//else
@@ -262,8 +266,15 @@ public class SignUpFragment extends Fragment {
             }//2d0
         }else{
             email.setError("¡Email no valido!");
-
         }//1ro
     }//checkEmailAndPasoword
+
+
+    //Intent principal
+    private void mainIntent(){
+        Intent mainIntent = new Intent(getActivity(),MainActivity.class);
+        startActivity(mainIntent);
+        getActivity().finish();
+    }
 
 }//SignUpFragment

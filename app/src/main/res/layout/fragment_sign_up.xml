@@ -48,29 +48,6 @@
 
 
         <EditText
-            android:id="@+id/txtPassword"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="#70ffffff"
-            android:ems="10"
-            android:hint="Contraseña (mas de ocho caracteres)"
-            android:inputType="textEmailAddress"
-            android:textColor="#70ffffff"
-            android:textColorHint="#70ffffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.562"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.578" />
-
-        <EditText
             android:id="@+id/txtEmail"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
@@ -116,6 +93,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.473" />
+
+
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#70ffffff"
+            android:ems="10"
+            android:hint="Contraseña (mas de ocho caracteres)"
+            android:inputType="textEmailAddress"
+            android:textColor="#70ffffff"
+            android:textColorHint="#70ffffff"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.578" />
 
         <EditText
             android:id="@+id/txtRepeatPassword"
