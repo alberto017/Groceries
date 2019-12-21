@@ -17,6 +17,9 @@ import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -109,17 +112,42 @@ public class ResetPasswordFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    txtResetPassword.setText("");
-                                    Toast.makeText(getActivity(),"¡Coreo enviado satisfactoriamente!",Toast.LENGTH_LONG).show();
+
+                                    ScaleAnimation scaleAnimation = new ScaleAnimation(1,0,1,0,imgEmail.getWidth()/2,imgEmail.getHeight()/2);
+                                    scaleAnimation.setDuration(100);
+                                    scaleAnimation.setInterpolator(new AccelerateInterpolator());
+                                    scaleAnimation.setRepeatMode(Animation.REVERSE);
+                                    scaleAnimation.setRepeatCount(1);
+                                    scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+                                        @Override
+                                        public void onAnimationStart(Animation animation) {
+
+                                        }
+
+                                        @Override
+                                        public void onAnimationEnd(Animation animation) {
+                                            pgbResetPassword.setVisibility(View.GONE);
+                                            lblNotice.setText("Coreo enviado satisfactoriamente!");
+                                            lblNotice.setTextColor(getResources().getColor(R.color.successGreen));
+                                            TransitionManager.beginDelayedTransition(vgEmailContainer);
+                                            lblNotice.setVisibility(View.VISIBLE);
+                                        }
+
+                                        @Override
+                                        public void onAnimationRepeat(Animation animation) {
+                                            imgEmail.setImageResource(R.drawable.email);
+                                        }
+                                    });
+                                    imgEmail.startAnimation(scaleAnimation);
                                 }else{
                                     String error = task.getException().getMessage();
                                     pgbResetPassword.setVisibility(View.GONE);
-
                                     lblNotice.setText(error);
                                     lblNotice.setTextColor(getResources().getColor(R.color.successFail));
                                     TransitionManager.beginDelayedTransition(vgEmailContainer);
-                                    imgEmail.setVisibility(View.VISIBLE);
-                                    Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+                                    lblNotice.setVisibility(View.VISIBLE);
+                                    //Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
                                 }//else
                                 btnResetPassword.setEnabled(true);
                                 btnResetPassword.setTextColor(Color.argb(255,255,255,255));
