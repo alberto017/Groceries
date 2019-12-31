@@ -11,6 +11,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +34,17 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView rvCategory;
     private CategoryAdapter categoryAdapter;
+
     private ViewPager vpBannerSlider;
     private List<SliderModel> sliderModelList;
     private int currentPage = 2;
     private Timer timer;
     final private long DELAY_TIME = 3000;
     final private long PERIOD_TIME = 3000;
+
+    private TextView txtTitleHorizontalScrollItem;
+    private Button btnViewAllHorizontalScrollItem;
+    private RecyclerView rvHorizontalScrollItem;
 
 
     @Override
@@ -67,22 +76,24 @@ public class HomeFragment extends Fragment {
         // Banner
         vpBannerSlider = view.findViewById(R.id.banner_slider_view_pager);
         sliderModelList = new ArrayList<SliderModel>();
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.cart));
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.cart));
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.cart));
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.banner));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.cart,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.cart,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.cart,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077AE4"));
 
         SliderAdapter sliderAdapter = new SliderAdapter(sliderModelList);
         vpBannerSlider.setAdapter(sliderAdapter);
         vpBannerSlider.setClipToPadding(false);
         vpBannerSlider.setPageMargin(20);
+
+        vpBannerSlider.setCurrentItem(currentPage);
 
         ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
@@ -116,6 +127,54 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
+
+
+
+        /*
+                   Horizontal product layout
+        */
+
+        txtTitleHorizontalScrollItem = view.findViewById(R.id.txtTitleHorizontalScroll);
+        btnViewAllHorizontalScrollItem = view.findViewById(R.id.btnViewAllHorizontarScroll);
+        rvHorizontalScrollItem = view.findViewById(R.id.rvHorizontalScroll);
+
+        List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.sugar,"Azucar Morena 1Kg.","Zulka","$28.00"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.sugar,"Azucar Morena 1Kg.","Zulka","$28.00"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.sugar,"Azucar Morena 1Kg.","Zulka","$28.00"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.sugar,"Azucar Morena 1Kg.","Zulka","$28.00"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.sugar,"Azucar Morena 1Kg.","Zulka","$28.00"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.sugar,"Azucar Morena 1Kg.","Zulka","$28.00"));
+
+        HorizontalProductScrollAdapter horizontalProductScrollAdapter = new HorizontalProductScrollAdapter(horizontalProductScrollModelList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        rvHorizontalScrollItem.setLayoutManager(linearLayoutManager);
+        rvHorizontalScrollItem.setAdapter(horizontalProductScrollAdapter);
+        horizontalProductScrollAdapter.notifyDataSetChanged();
+
+
+        /*
+                  Grid Product Layout
+        */
+
+        TextView txtTitleGridProduct = view.findViewById(R.id.txtTitleGridProduct);
+        Button btnAceptarGridProduct = view.findViewById(R.id.btnAceptarGridProduct);
+        GridView gvListaGridProduct = view.findViewById(R.id.gvListaGridProduct);
+
+        gvListaGridProduct.setAdapter(new GridProductLayoutAdapter(horizontalProductScrollModelList));
+
+        /*
+                  Testing
+        */
+
+        //Asignar recyclerView a activity
+        RecyclerView testing = view.findViewById(R.id.testing);
+        LinearLayoutManager testingLayoutManager = new LinearLayoutManager(getContext());
+        testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        testing.setLayoutManager(testingLayoutManager);
+
 
         return view;
     }

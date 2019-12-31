@@ -10,8 +10,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
+
+/*
+
+ */
+
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
+    //Declaramos una lista que contendra todas los metodos y variables de la clase CategoryModel
     private List<CategoryModel> categoryModelList;
 
     //Constructor
@@ -20,6 +26,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
 
+    //Enlazamos con nuesro xml las variables
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -27,6 +34,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    //Enlazamos
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         String icon = categoryModelList.get(position).getCategoryIconLink();
