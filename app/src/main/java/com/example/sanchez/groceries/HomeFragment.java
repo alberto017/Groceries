@@ -73,6 +73,7 @@ public class HomeFragment extends Fragment {
         rvCategory.setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
 
+
         // Banner
         vpBannerSlider = view.findViewById(R.id.banner_slider_view_pager);
         sliderModelList = new ArrayList<SliderModel>();
@@ -164,16 +165,6 @@ public class HomeFragment extends Fragment {
         GridView gvListaGridProduct = view.findViewById(R.id.gvListaGridProduct);
 
         gvListaGridProduct.setAdapter(new GridProductLayoutAdapter(horizontalProductScrollModelList));
-
-        /*
-                  Testing
-        */
-
-        //Asignar recyclerView a activity
-        RecyclerView testing = view.findViewById(R.id.testing);
-        LinearLayoutManager testingLayoutManager = new LinearLayoutManager(getContext());
-        testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        testing.setLayoutManager(testingLayoutManager);
 
 
         return view;
