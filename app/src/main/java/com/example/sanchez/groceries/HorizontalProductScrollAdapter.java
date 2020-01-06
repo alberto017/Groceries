@@ -1,5 +1,6 @@
 package com.example.sanchez.groceries;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -52,12 +53,20 @@ public class HorizontalProductScrollAdapter extends RecyclerView.Adapter<Horizon
         private TextView productDescription;
         private TextView productPrice;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.imgHorizontalScrollItem);
             productTitle = itemView.findViewById(R.id.txtTitleHorizontalScrollItem);
             productDescription = itemView.findViewById(R.id.txtDescHorizontalScrollItem);
             productPrice = itemView.findViewById(R.id.txtPriceHorizontalScrollItem);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent productDetailsIntent = new Intent(itemView.getContext(),ProductDetailActivity.class);
+                    itemView.getContext().startActivity(productDetailsIntent);
+                }
+            });
         }
 
         private void setProductImage(int resource){
