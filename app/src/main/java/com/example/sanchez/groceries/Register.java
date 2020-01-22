@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 
 public class Register extends AppCompatActivity {
 
+    //Se declaran las variables
     private FrameLayout flRegister;
     public static boolean onResetPasswordFragment = false;
 
@@ -16,13 +17,13 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        //Enlazo la variable con el componente
         flRegister = findViewById(R.id.flRegister);
+
         //Llamo metodo de asignacion
         setDefaultFragment(new SignInFragment());
     }
 
+    //metodo para regresar a otro fragmento al presionar la tecla atras
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
@@ -43,7 +44,7 @@ public class Register extends AppCompatActivity {
         fragmentTransaction.commit();
     }//setFragment
 
-    //Asignacion de fragment signInFragment en Register
+    //Asignacion de fragment signUpFragment en Register
     private void setFragment(android.support.v4.app.Fragment fragment){
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(flRegister.getId(),fragment);

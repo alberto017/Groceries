@@ -43,8 +43,9 @@
             <include
                 layout="@layout/product_images_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
+            <include layout="@layout/product_description_layout"/>
         </LinearLayout>
     </ScrollView>
 
