@@ -6,4 +6,5 @@
     <color name="btnAzul">#02008c</color>
     <color name="successGreen">#11a10c</color>
     <color name="successFail">#e60800</color>
+    <color name="recyclerviewBackground">#d6d6d6</color>
 </resources>

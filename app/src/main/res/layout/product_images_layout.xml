@@ -201,7 +201,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="$6.00 mxn"
+                android:text="$19.00 mxn"
                 android:textColor="#f9e400"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
