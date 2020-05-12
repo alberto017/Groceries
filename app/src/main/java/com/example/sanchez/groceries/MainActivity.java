@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
     private static final int HOME_FRAGMENT = 0;
     private static final int CART_FRAGMENT = 1;
     private static final int ORDERS_FRAGMENT = 2;
+    private static final int ACCOUNT_FRAGMENT = 2;
 
     private FrameLayout frameLayout;
     private ImageView actionBarLogo;
@@ -50,10 +51,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().getItem(0).setChecked(true);
 
         //Declaro frameLayout
-         frameLayout = findViewById(R.id.main_framelayout);
-         setFrament(new HomeFragment(),HOME_FRAGMENT);
+        frameLayout = findViewById(R.id.main_framelayout);
+        //setFrament(new HomeFragment(),HOME_FRAGMENT);
+        setFrament(new HomeFragment(), HOME_FRAGMENT);
 
-         actionBarLogo = findViewById(R.id.actionbar_logo);
+        actionBarLogo = findViewById(R.id.actionbar_logo);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if(currentFragment == HOME_FRAGMENT){
+        if (currentFragment == HOME_FRAGMENT) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getMenuInflater().inflate(R.menu.main, menu);
         }
@@ -87,25 +89,25 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.side_search_icon) {
             //Search
             return true;
-        }else if(id == R.id.side_notification_icon){
+        } else if (id == R.id.side_notification_icon) {
             //Notification
             return true;
-        }else if(id == R.id.side_cart_icon){
-            gotoFragment("Mi carrito",new MyCartFragment(),CART_FRAGMENT);
+        } else if (id == R.id.side_cart_icon) {
+            gotoFragment("Mi carrito", new MyCartFragment(), CART_FRAGMENT);
             return true;
         }//else
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void gotoFragment(String title,Fragment fragment,int fragmentNo) {
+    private void gotoFragment(String title, Fragment fragment, int fragmentNo) {
         //Quitar titulo de ventana principal
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(title);
         actionBarLogo.setVisibility(View.GONE);
         invalidateOptionsMenu();
-        setFrament(fragment,fragmentNo);
-        if(fragmentNo == CART_FRAGMENT){
+        setFrament(fragment, fragmentNo);
+        if (fragmentNo == CART_FRAGMENT) {
             navigationView.getMenu().getItem(3).setChecked(true);
         }
     }
@@ -116,38 +118,38 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_mall){
+        if (id == R.id.nav_mall) {
             //Quitar titulo de ventana principal
             //getSupportActionBar().setDisplayShowTitleEnabled(false);
             actionBarLogo.setVisibility(View.VISIBLE);
             invalidateOptionsMenu();
-            setFrament(new HomeFragment(),HOME_FRAGMENT);
+            setFrament(new HomeFragment(), HOME_FRAGMENT);
         } else if (id == R.id.nav_orders) {
-            gotoFragment("Mis Ordenes",new MyOrdersFragment(),ORDERS_FRAGMENT);
+            gotoFragment("Mis Ordenes", new MyOrdersFragment(), ORDERS_FRAGMENT);
         } else if (id == R.id.nav_rewards) {
 
         } else if (id == R.id.nav_cart) {
-            gotoFragment("Mi carrito",new MyCartFragment(),CART_FRAGMENT);
+            gotoFragment("Mi carrito", new MyCartFragment(), CART_FRAGMENT);
         } else if (id == R.id.nav_wishlist) {
 
         } else if (id == R.id.nav_account) {
+            gotoFragment("My Account", new MyAccountFragment(), ACCOUNT_FRAGMENT);
+        } else if (id == R.id.nav_signOut) {
 
-        }  else if (id == R.id.nav_signOut) {
-
-        }
+        }//else
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }//OnNAvigationItemSelected
 
     //Llamo fragment de menu de productos (HomeFragment)
-    private void setFrament(Fragment fragment,int fragmentNo){
-        if(fragmentNo != currentFragment){
+    private void setFrament(Fragment fragment, int fragmentNo) {
+        if (fragmentNo != currentFragment) {
             currentFragment = fragmentNo;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
-            fragmentTransaction.replace(frameLayout.getId(),fragment);
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.replace(frameLayout.getId(), fragment);
             fragmentTransaction.commit();
         }//if
     }

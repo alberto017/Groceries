@@ -30,7 +30,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".CategoryActivity" />
-        <activity android:name=".ProductDetailActivity"></activity>
+        <activity android:name=".ProductDetailActivity" />
+        <activity android:name=".OrderDetailsActivity"></activity>
     </application>
 
 </manifest>

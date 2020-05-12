@@ -1,5 +1,6 @@
 package com.example.sanchez.groceries;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -56,12 +57,21 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.Viewhold
         private TextView txtProductTitleOrder;
         private TextView txtDeliveredOrder;
 
-        public Viewholder(View itemView) {
+        public Viewholder(final View itemView) {
             super(itemView);
             imgProductOrder = itemView.findViewById(R.id.imgProductOrder);
             imgOrderIndicator = itemView.findViewById(R.id.imgOrderIndicator);
             txtProductTitleOrder = itemView.findViewById(R.id.txtProductTitleOrder);
             txtDeliveredOrder = itemView.findViewById(R.id.txtDeliveredOrder);
+
+            //Evento onClicl en el adapter
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent orderDetails = new Intent(itemView.getContext(),OrderDetailsActivity.class);
+                    itemView.getContext().startActivity(orderDetails);
+                }
+            });
         }
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
